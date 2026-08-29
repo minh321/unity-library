@@ -8,6 +8,18 @@ An encyclopedia for two interviews plus a Unity 6.0 ebook:
 
 Every article lists **Unity 6 (6000.0)** Manual or package **17** documentation. A live trainer chat sits on the right: ask about a heading you do not understand. The trainer stays inside this library. It will not invent a Team Leader title, a Technical Artist title, a VFX Graph shipping credit, or a 30-user 3D collaboration room you have not shipped.
 
+## Live site
+
+[https://minh321.github.io/unity-library/](https://minh321.github.io/unity-library/) — source: [github.com/minh321/unity-library](https://github.com/minh321/unity-library)
+
+GitHub Actions already **builds** the static site. If the URL is 404, turn Pages on once (free, same as the CV):
+
+1. Open [Settings → Pages](https://github.com/minh321/unity-library/settings/pages)
+2. **Build and deployment → Source → GitHub Actions**
+3. Open [Actions](https://github.com/minh321/unity-library/actions) → latest **Deploy to GitHub Pages** → **Re-run failed jobs**
+
+Keep the repo **public**. Private Pages is paid.
+
 ## Run locally
 
 You need Node.js 18 or newer.
@@ -62,36 +74,3 @@ Do not claim a shipped 30-user 3D collaboration room or a production VFX Graph l
 ## Trainer
 
 The chat is a local retrieval agent over this encyclopedia (no API key, no server). It runs in the browser so the library can be hosted on GitHub Pages. If a mechanism is not in the library, the trainer says so and points at Unity 6 docs instead of inventing a node.
-
-Progress from the older interview-lab quiz engine still lives in the repo for **Check yourself** scoring. The home page is the encyclopedia.
-
-## Host on GitHub Pages (free, same as the CV)
-
-Source: [github.com/minh321/unity-library](https://github.com/minh321/unity-library)
-
-Public site:
-
-[https://minh321.github.io/unity-library/](https://minh321.github.io/unity-library/)
-
-Keep the repo **public**. Private GitHub Pages is paid. Public Pages is free, like [gamedev-cv](https://minh321.github.io/gamedev-cv/).
-
-### Publish
-
-```bash
-git remote add github https://github.com/minh321/unity-library.git
-git push -u github main
-```
-
-If GitHub already created a README commit you do not need:
-
-```bash
-git push -u github main --force
-```
-
-Then: **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-
-**Actions** → **Deploy to GitHub Pages** runs on every push to `main`. When it is green, open https://minh321.github.io/unity-library/
-
-The first run can fail until Pages is set to GitHub Actions. Enable that, then re-run the workflow.
-
-Do not commit the `out/` folder. GitHub Actions builds it.
