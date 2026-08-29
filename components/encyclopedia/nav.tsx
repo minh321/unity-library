@@ -33,14 +33,14 @@ export function EncyclopediaNav({ onNavigate }: { onNavigate?: () => void }) {
           Unity Lead Library
         </p>
         <h1 className="mt-1 font-serif text-xl leading-tight">Team Leader encyclopedia</h1>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          Rooms · Mobile + PC · Unity 6 Manual ebook. VFX / TA wing for a later interview. Ask the trainer about any section.
+        <p className="mt-2 text-[12.5px] leading-relaxed text-muted-foreground">
+          Rooms · Mobile + PC · Unity 6 Manual. Later: VFX / TA. Ask any heading.
         </p>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search articles"
-          className="mt-3 h-9 w-full rounded-md border border-border bg-card px-2.5 text-sm outline-none ring-ring focus:ring-2"
+          className="mt-3 h-10 w-full rounded-lg border border-border bg-card px-3 text-sm outline-none ring-ring placeholder:text-muted-foreground/70 focus:ring-2"
         />
       </div>
       <ScrollArea className="flex-1 px-2 pb-4">
@@ -55,8 +55,8 @@ export function EncyclopediaNav({ onNavigate }: { onNavigate?: () => void }) {
           </div>
         ) : (
           groups.map((g) => (
-            <div key={g.id} className="mb-3">
-              <p className="px-2 pb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            <div key={g.id} className="mb-4">
+              <p className="sticky top-0 z-10 bg-sidebar/95 px-2 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground backdrop-blur">
                 {g.title}
               </p>
               <div className="flex flex-col gap-0.5">
@@ -98,8 +98,10 @@ function NavLink({
       type="button"
       onClick={() => onClick(id)}
       className={cn(
-        "rounded-md px-2 py-1.5 text-left text-[13px] leading-snug",
-        active ? "bg-muted text-accent" : "text-foreground/90 hover:bg-muted/60"
+        "w-full rounded-md px-2.5 py-1.5 text-left text-[13px] leading-snug",
+        active
+          ? "bg-accent/15 font-medium text-accent ring-1 ring-accent/25"
+          : "text-foreground/85 hover:bg-muted/70 hover:text-foreground"
       )}
     >
       {title}

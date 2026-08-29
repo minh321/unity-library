@@ -18,7 +18,7 @@ function EncyclopediaLayout() {
         <button
           type="button"
           onClick={() => setNavOpen(true)}
-          className="rounded-md border border-border px-3 py-1.5 text-xs"
+          className="rounded-md border border-border px-3 py-1.5 text-xs font-medium"
         >
           Library
         </button>
@@ -48,7 +48,7 @@ function EncyclopediaLayout() {
         <div className="hidden w-[280px] shrink-0 lg:block">
           <EncyclopediaNav />
         </div>
-        <main className="min-w-0 flex-1 overflow-y-auto">
+        <main id="article-scroll" className="article-scroll min-w-0 flex-1 overflow-y-auto">
           <ArticleView />
         </main>
         <TrainerChat />

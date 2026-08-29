@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --background: 22 16% 7%;
-  --foreground: 38 28% 90%;
-  --card: 30 12% 10%;
-  --card-foreground: 38 28% 90%;
-  --sidebar: 24 14% 8%;
-  --muted: 30 10% 14%;
-  --muted-foreground: 32 10% 62%;
-  --border: 30 10% 18%;
-  --input: 30 12% 11%;
-  --accent: 36 62% 58%;
+  --background: 24 18% 8%;
+  --foreground: 38 22% 94%;
+  --card: 30 14% 11%;
+  --card-foreground: 38 22% 94%;
+  --sidebar: 24 16% 7%;
+  --muted: 30 12% 15%;
+  --muted-foreground: 32 14% 78%;
+  --border: 30 12% 20%;
+  --input: 30 12% 12%;
+  --accent: 36 68% 62%;
   --accent-foreground: 24 30% 10%;
   --secondary: 30 10% 16%;
-  --secondary-foreground: 38 28% 90%;
-  --ring: 36 62% 58%;
-  --danger: 8 58% 54%;
-  --pass: 95 22% 52%;
+  --secondary-foreground: 38 22% 94%;
+  --ring: 36 68% 62%;
+  --danger: 8 62% 62%;
+  --pass: 95 28% 58%;
   --candidate: 30 16% 12%;
 }
 
@@ -30,12 +30,30 @@
   body {
     height: 100%;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
     background-image:
-      radial-gradient(1200px 500px at 10% -10%, hsl(36 40% 18% / 0.25), transparent 50%),
-      radial-gradient(800px 400px at 100% 0%, hsl(8 30% 14% / 0.2), transparent 45%);
+      radial-gradient(1100px 480px at 8% -12%, hsl(36 42% 18% / 0.28), transparent 52%),
+      radial-gradient(720px 380px at 100% 0%, hsl(8 28% 14% / 0.18), transparent 46%);
+  }
+  ::selection {
+    background: hsl(36 68% 62% / 0.32);
+    color: hsl(38 22% 96%);
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
@@ -45,4 +63,40 @@
 
 .font-mono {
   font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+.article-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(30 12% 28%) transparent;
+}
+
+.article-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.article-scroll::-webkit-scrollbar-thumb {
+  background: hsl(30 12% 28%);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+@layer components {
+  .article-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: hsl(var(--foreground) / 0.94);
+  }
+  .article-body p,
+  .article-body li {
+    text-wrap: pretty;
+  }
+  .article-body strong {
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+  .article-body code {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.86em;
+    color: hsl(var(--accent));
+  }
 }
