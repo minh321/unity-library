@@ -1,0 +1,561 @@
+import type { Article, Block } from "@/lib/encyclopedia/types";
+
+function h2(id: string, text: string): Block {
+  return { type: "h2", id, text };
+}
+function p(text: string): Block {
+  return { type: "p", text };
+}
+function ul(items: string[]): Block {
+  return { type: "ul", items };
+}
+function ol(items: string[]): Block {
+  return { type: "ol", items };
+}
+function callout(tone: "tip" | "warn" | "honest" | "lead", title: string, text: string): Block {
+  return { type: "callout", tone, title, text };
+}
+function table(headers: string[], rows: string[][]): Block {
+  return { type: "table", headers, rows };
+}
+function qa(q: string, a: string): Block {
+  return { type: "qa", q, a };
+}
+function checklist(items: string[]): Block {
+  return { type: "checklist", items };
+}
+
+export const coreArticles: Article[] = [
+  {
+    id: "home",
+    title: "Unity Team Leader Encyclopedia",
+    group: "start",
+    summary:
+      "A production library for the Unity Team Leader interview: architecture, performance, collaboration rooms, and honest leadership. Ask the trainer about any section.",
+    readMinutes: 6,
+    tags: ["overview", "how to use", "trainer"],
+    related: ["role-and-product", "study-path", "honest-leadership", "vfx-ta-interview", "ebook"],
+    suggestedQuestions: [
+      "Where should I start if I only have evenings to study?",
+      "What will this interview actually test?",
+      "How do I use the trainer chat?",
+    ],
+    blocks: [
+      p("This is not a gameplay-programmer wiki and not a slogan deck. It is a working encyclopedia for a Unity Team Leader who will ship an interactive 3D simulation and online collaboration product on Mobile and PC — plus a later VFX / Technical Artist wing and a Unity 6.0 ebook that follows the official Manual and Scripting API."),
+      p("Read an article. When a paragraph is unclear, open the trainer on the right and ask about that section. The trainer stays in this library: it will not invent a Team Leader title for you, and it will not pretend you shipped a 30-user 3D collaboration room."),
+      h2("how-it-works", "How this site works"),
+      ol([
+        "Pick an article in the left index. Groups follow the interview: role, engineering, collaboration, leadership, VFX / Technical Artist, Unity 6 ebook, interview craft.",
+        "Read for judgment, not keyword collection. Callouts marked Honest are about your real background.",
+        "Use Ask the trainer on a heading, or type a question in the chat. The agent answers from this encyclopedia, using the article you are on as context.",
+        "Run Check yourself on articles that have a practice set. Four questions, production distractors.",
+      ]),
+      h2("what-the-panel-wants", "What the panel is hiring"),
+      ul([
+        "Someone who can keep a virtual room stable on weak hardware",
+        "Someone who designs maintainable Unity architecture, not a pile of managers",
+        "Someone who can reason about shared real-time state even without having shipped this exact product",
+        "Someone who can lead delivery with design, art, and QA",
+        "Someone who tells the truth about gaps",
+      ]),
+      callout(
+        "honest",
+        "Your background",
+        "Three to four years across Unity, Cocos, and C#. More than 15 shipped games, large migrations, a revenue live title with little downtime, Addressables, Profiler work, SmartFox/WebSockets. Informal leadership. No formal Team Leader year. Frame that. Do not upgrade it."
+      ),
+      h2("library-map", "Library map"),
+      table(
+        ["Wing", "Start here if…"],
+        [
+          ["Role and path", "You still sound like an implementer in the intro"],
+          ["C# and Unity systems", "You know the button but cannot explain the mechanism"],
+          ["Rooms and networking", "Collaboration design is your largest gap"],
+          ["Leadership and delivery", "You have done the work but not named it as lead work"],
+          ["VFX / Technical Artist", "A later interview: start with VFX in plain language, then graphs, shaders, Unity 6 pipelines"],
+          ["Unity 6 ebook", "You want the Manual and Scripting API in reading order, plus Unity’s official PDFs"],
+          ["Interview craft", "You freeze on spoken structure or overclaim"],
+        ]
+      ),
+      h2("trainer-agent", "The trainer agent"),
+      p("The trainer is a live chat bound to this encyclopedia. It retrieves the sections that match your question, answers in Team Lead voice, and cites the articles. If you are on Profiling and ask “what would I measure?”, it answers as a measurement-first lead, not as a tutorial blog."),
+      ul([
+        "Ask “explain this like I have to speak it in 90 seconds”",
+        "Ask “what is wrong with this answer: …”",
+        "Ask “how does this apply to user-generated rooms?”",
+        "Ask “quiz me on this heading”",
+      ]),
+      callout("lead", "Rule", "If the encyclopedia does not contain it, the trainer will say so and tell you how a lead would approach the unknown — it will not hallucinate Unity APIs."),
+    ],
+  },
+  {
+    id: "role-and-product",
+    title: "The role and the product",
+    group: "start",
+    summary:
+      "This is a Team Leader seat on a 3D simulation and online collaboration application, not a slot-gameplay hire.",
+    readMinutes: 8,
+    tags: ["role", "product", "rooms", "mobile", "pc"],
+    related: ["honest-leadership", "networking", "profiling"],
+    practiceTopic: "title-gap",
+    suggestedQuestions: [
+      "Why would they pick a casino/Cocos developer for a simulation product?",
+      "What is different from a senior gameplay engineer interview?",
+      "Which product risks belong to the Team Leader?",
+    ],
+    blocks: [
+      h2("product", "The product"),
+      p("The company builds digital working environments: users create virtual rooms, meet, train, and interact in real time. The mix is productivity, social connection, and entertainment. Targets include Mobile, PC, and other supported devices. Performance must hold across hardware levels."),
+      ul([
+        "User-created or selectable virtual rooms, some very large",
+        "Avatars, shared objects, text or voice collaboration",
+        "Persistence of room layout and session recovery",
+        "Content delivery that cannot ship every room in the player binary",
+      ]),
+      h2("responsibilities", "Core responsibilities"),
+      ul([
+        "Develop and deploy Unity 3D applications",
+        "Optimize for different devices: tracking, rendering, interaction, UI, memory, CPU, GPU, loading",
+        "Participate in basic and detailed design; turn business requirements into technical plans",
+        "Coordinate with Game Designers, Artists, Testers, and other developers",
+        "Fix bugs, improve existing features, control code quality and delivery",
+        "Write and maintain technical documentation",
+        "Mentor juniors",
+      ]),
+      h2("not-gameplay", "Why this is not a gameplay-dev screen"),
+      p("They will still ask Unity and C#. They will also ask you to own architecture, device tiers, collaboration failure modes, estimation, and stakeholder communication. A correct Mecanim answer that never mentions occupancy, QA, or mid-range Android is a mid-level answer."),
+      h2("your-transfer", "What transfers from your history"),
+      table(
+        ["You have done", "How it maps"],
+        [
+          ["Live casino/slot maintenance, little downtime", "Incident command, rollback instinct, respect for revenue path"],
+          ["15+ shipped Cocos titles; shared codebase", "Production constraints, reuse, review culture"],
+          ["10+ Unity upgrades; 40+ Haxe migrations; ~30 server-client adaptations", "Sequencing, versioning, risk, documentation"],
+          ["SmartFox, REST, WebSockets, race conditions", "Client-server thinking — not yet 3D room netcode, but the right instincts"],
+          ["Addressables, Profiler, GC, batching, occlusion, mobile/web", "The measurement and delivery vocabulary this product needs"],
+          ["Coordination with design, art, QA", "Lead behavior without the title"],
+        ]
+      ),
+      callout("warn", "Do not oversell the hop", "“I built 3D MMOs” is a lie. “I have shipped networked clients and would design occupancy from authority and failure modes” is a Team Lead sentence."),
+    ],
+  },
+  {
+    id: "study-path",
+    title: "Study path and skill matrix",
+    group: "start",
+    summary: "A practical order of reading if you cannot study everything at once. P0 is collaboration, measurement, architecture, and the title-gap story.",
+    readMinutes: 7,
+    tags: ["plan", "priority", "matrix"],
+    related: ["honest-leadership", "profiling", "networking", "unity-architecture", "vfx-ta-interview", "ebook"],
+    suggestedQuestions: [
+      "What is P0 for me specifically?",
+      "How do I know I am ready for a mock interview?",
+      "How should I spend one focused evening?",
+    ],
+    blocks: [
+      h2("p0", "P0 — interview-critical"),
+      ol([
+        "Honest leadership intro and five STAR stories (no invented metrics)",
+        "Measurement-first optimization, spoken as a process",
+        "Collaboration rooms: authority, occupancy, snapshot reconnect",
+        "Unity architecture: thin MonoBehaviours, bootstrap, rooms as content",
+      ]),
+      h2("p1", "P1 — senior depth"),
+      ul([
+        "Rendering interiors: SRP Batcher vs fill rate, quality tiers",
+        "Addressables: unload, catalogs, failed downloads, compatibility",
+        "Requirements: slogan → MVP cut → ranges",
+        "Incidents: halt rollout, symbols, matrix change",
+      ]),
+      h2("p2", "P2 — keep sharp"),
+      ul(["Lifecycle pairing", "SOLID / interaction composition", "UI canvas splits", "Animation LOD", "AI usage policy"]),
+      h2("vfx-path", "Later: VFX / Technical Artist interview"),
+      ol([
+        "Read VFX / Technical Artist interview for the honest opening — you are not a titled TA",
+        "If graphs still feel foreign, read **VFX in plain language**, then VFX Graph / Shader Graph said simply, then Learn by doing",
+        "Render pipelines deep dive (Unity 6): URP camera loop, Forward+, Render Graph, GPU Resident Drawer, why not Built-in RP",
+        "Built-in Particle System, then Visual Effect Graph, then Shader Graph — in that order",
+        "VFX lookdev cost: overdraw, quality tiers, how you partner with art",
+        "Download Unity’s VFX Graph e-book after you have opened Learning Templates — this library does not copy the PDF",
+        "Run Check yourself on those articles; ask the trainer to quiz you as a TA, not as a Team Lead",
+      ]),
+      h2("ebook-path", "Unity 6 ebook (Manual + Scripting API)"),
+      ol([
+        "Open Unity 6 ebook — cover, then Manual atlas so you know the official map",
+        "Programming in Unity + core types + Player loop / Awaitable — this is Volume I",
+        "Graphics, world simulation, UI, content, ship — Volume II; skip 2D/XR depth unless they ask",
+        "Download Unity’s official PDFs last: C# style guide, SOLID/patterns, ScriptableObjects, DOTS",
+        "When an API is unnamed, open the 6000.0 Scripting API — never invent a method",
+      ]),
+      h2("evenings", "One evening"),
+      ol([
+        "Read one article all the way through (25–40 minutes)",
+        "Ask the trainer three questions you could not answer out loud",
+        "Run Check yourself if the article has a practice set",
+        "Speak the 90-second version once, recording yourself",
+      ]),
+      h2("ready-bar", "Ready when you can"),
+      checklist([
+        "Explain Unity systems, not only name them",
+        "Diagnose performance with measurements",
+        "Design maintainable Unity architecture",
+        "Explain networking fundamentals for collaborative rooms",
+        "Discuss cross-platform constraints",
+        "Convert requirements into technical plans",
+        "Make trade-offs explicit",
+        "Lead a technical discussion and a code review",
+        "Handle a production incident calmly",
+        "Answer honestly when you lack direct experience",
+      ]),
+      callout("tip", "Score yourself 0–5", "0 none, 1 awareness, 2 junior, 3 independent mid, 4 senior production, 5 Team Lead judgment. Target 4–5 on P0 before you schedule the panel."),
+    ],
+  },
+  {
+    id: "honest-leadership",
+    title: "Leading without the title",
+    group: "leadership",
+    summary:
+      "How to meet a one-year Team Leader requirement honestly: name the gap once, then prove adjacent lead work.",
+    readMinutes: 10,
+    tags: ["leadership", "title gap", "STAR", "mentoring"],
+    related: ["role-and-product", "interview-playbook", "stories"],
+    practiceTopic: "title-gap",
+    suggestedQuestions: [
+      "Give me the title-gap sentence and three proofs from my history.",
+      "How do I answer why you over a formal TL?",
+      "What is STAR with Reasoning and Learning?",
+    ],
+    blocks: [
+      h2("sentence", "The allowed opening"),
+      p("I have not yet held the formal Team Leader title for a full year, but I have already performed several lead-level responsibilities."),
+      p("Then immediately: what you owned, what the team owned, the evidence, the product reason you want this seat."),
+      h2("evidence-you-have", "Evidence you actually have"),
+      ul([
+        "Owning migrations and ~30 client adaptations",
+        "Protecting a revenue-critical live game with very little downtime",
+        "Coordinating with design, art, QA",
+        "Working in a shared production codebase",
+        "Investigating issues where downtime matters",
+        "Modernizing Unity projects and transferring version knowledge",
+      ]),
+      h2("never", "Never say"),
+      ul([
+        "I managed a team of N",
+        "As Team Leader I…",
+        "Invented percentages or millisecond wins you do not remember",
+        "I already designed our production 3D collaboration stack",
+      ]),
+      h2("star", "STAR with Reasoning and Learning"),
+      table(
+        ["Beat", "What to include"],
+        [
+          ["Situation", "Product, constraint, who was affected"],
+          ["Task", "What you were responsible for — I, not we"],
+          ["Action", "What you personally did, in order"],
+          ["Reasoning", "Why that option, what you rejected"],
+          ["Result", "Honest outcome: shipped, less recurrence, less downtime — no fake %"],
+          ["Learning", "What you would install as a team standard now"],
+        ]
+      ),
+      h2("scenarios", "Lead scenarios you must be able to walk"),
+      ol([
+        "Junior misses deadlines: diagnose scope/skill/blockers, cut slice, pair",
+        "Working but unmaintainable code on a shared path: protect release (flag/revert/wrap), private examples, options to Product",
+        "Impossible date while fps is already poor: put frame time on the table, offer cuts",
+        "Senior disagrees on occupancy: failure modes, time-boxed spike, one written decision",
+        "Artist assets blow memory: budget, snapshots, shared ownership with art",
+        "QA files a critical bug before release: severity, blast radius, go/no-go",
+      ]),
+      qa(
+        "Why you instead of a formal TL?",
+        "Production judgment on live revenue systems, migration sequencing, and honest gaps I will close — especially 3D collaboration architecture I have not shipped. I will not need a year to learn that downtime matters."
+      ),
+      callout("honest", "Tone", "State the gap once. Do not apologize for the rest of the interview. Do not litigate the job spec."),
+    ],
+  },
+  {
+    id: "interview-playbook",
+    title: "Interview playbook",
+    group: "interview",
+    summary: "Spoken structure for technical and leadership answers. What the panel asks. How to fail on purpose vs by accident.",
+    readMinutes: 9,
+    tags: ["interview", "english", "structure"],
+    related: ["honest-leadership", "spoken-english", "question-bank"],
+    suggestedQuestions: [
+      "Give me the 60–90 second skeleton for a performance question.",
+      "How do I stop saying only we?",
+      "What follow-up will they ask after I mention Addressables?",
+    ],
+    blocks: [
+      h2("technical-skeleton", "Technical answers (60–90 seconds)"),
+      ol([
+        "Clarify the context (device, room, user count)",
+        "State the principle",
+        "How you would measure or investigate",
+        "The change",
+        "Trade-off (memory, art time, bandwidth, schedule)",
+        "How you validate (player build, device, QA/visual)",
+        "One true example if you have it",
+      ]),
+      p("Example shape: I would first confirm CPU-bound versus GPU-bound using a development build and the Unity Profiler. If the main thread is blocked by Canvas rebuilds, I would split frequently updated UI from static UI. After the change I would compare frame time and allocation on low- and mid-range devices."),
+      h2("leadership-skeleton", "Leadership answers"),
+      p("Situation, Task, Action, Reasoning, Result, Learning. Split I owned / the team owned. Never a full answer of only we."),
+      h2("pressure-follow-ups", "Follow-ups they will use"),
+      ul([
+        "What would you measure?",
+        "Which Unity tools?",
+        "What evidence confirms the bottleneck?",
+        "What trade-offs?",
+        "How do you validate on device?",
+        "What do you tell Product / art / QA?",
+        "What fails if this is wrong?",
+      ]),
+      h2("fail-modes", "How candidates fail this panel"),
+      ul([
+        "Keyword dump without mechanism",
+        "Optimize it with no Profiler",
+        "Claiming the title",
+        "Client-authoritative grabs",
+        "Editor fps as proof",
+        "Memorized corporate English",
+        "Answers over three minutes",
+      ]),
+      callout("tip", "If you do not know", "I have not used that in production, but this is how I would approach it. Then: assumptions, authority, failure, test. That sentence is a strength if the rest is competent."),
+    ],
+  },
+  {
+    id: "spoken-english",
+    title: "Spoken technical English",
+    group: "interview",
+    summary: "Keep your natural voice. Shorten. Prefer precise verbs. Split I and we.",
+    readMinutes: 6,
+    tags: ["english", "communication"],
+    related: ["interview-playbook", "honest-leadership"],
+    suggestedQuestions: [
+      "Rewrite this answer to 90 seconds: …",
+      "Which words make me sound memorized?",
+      "How do I say I do not have production netcode experience?",
+    ],
+    blocks: [
+      h2("rules", "Rules"),
+      ul([
+        "One idea per breath. Three beats: context, method, trade-off.",
+        "Prefer measure, grant, refuse, halt, cut, prove over utilize, leverage, synergy",
+        "I owned X. The team owned Y.",
+        "Do not invent fluency you do not have. Slow and exact beats fast and vague.",
+      ]),
+      h2("phrases", "Phrases worth memorizing (because they are true)"),
+      ul([
+        "I have not yet held the formal Team Leader title for a full year, but I have already performed several lead-level responsibilities.",
+        "I would prove the allocation before rewriting the query.",
+        "Server authority for anything two users can fight over.",
+        "Release is not the same as the GPU memory is gone.",
+        "I have not used that in production, but this is how I would approach it.",
+        "Protect the release first, then coach the person.",
+      ]),
+      h2("cuts", "Cut these"),
+      table(
+        ["Drop", "Use"],
+        [
+          ["In today's fast-paced industry", "delete"],
+          ["I would optimize it", "I would measure X on a development player"],
+          ["We did many things", "I owned the client adaptations; QA owned the device pass"],
+          ["Basically / actually / just", "delete most of them"],
+        ]
+      ),
+    ],
+  },
+  {
+    id: "stories",
+    title: "Five truthful stories",
+    group: "interview",
+    summary: "Build STAR stories from work you actually did. No invented metrics.",
+    readMinutes: 8,
+    tags: ["STAR", "stories", "evidence"],
+    related: ["honest-leadership", "profiling", "requirements"],
+    suggestedQuestions: [
+      "Help me outline the revenue-title stability story.",
+      "What measurement language can I use if I do not remember milliseconds?",
+      "How do I tell a migration story at lead level?",
+    ],
+    blocks: [
+      h2("stability", "1. Production-critical maintenance"),
+      p("The live casino/slot title. Period where stability was at risk. What you personally did: hotfix path, race-condition fix, blocking a risky client change, coordinating QA and backend. Do not say you kept it alive without an action."),
+      h2("bug", "2. Difficult technical bug"),
+      p("Race, async, or lifecycle. Interviewers want the isolation method more than the punchline: logs, repro, hypothesis, one change."),
+      h2("perf", "3. Performance"),
+      p("Profiler-backed: GC, batching, occlusion, loading, UI. If you lack exact ms, say so. Describe the Profiler view. Do not invent milliseconds."),
+      h2("migration", "4. Migration or modernization"),
+      p("Unity upgrades, Haxe→Cocos, or ~30 server-migration client adaptations. Lead evidence is sequencing, risk, and knowledge transfer — not only porting scripts."),
+      h2("lead", "5. Coordination or mentoring"),
+      p("A time you influenced other people's work without the title. Situation, what you owned, others owned, pushback, result, learning."),
+      callout("honest", "Metrics", "Use counts you have: 15 games, 10 Unity upgrades, 40 Haxe migrations, 30 client adaptations, very little downtime. Do not manufacture a percentage."),
+    ],
+  },
+  {
+    id: "cheatsheets",
+    title: "Revision sheets",
+    group: "interview",
+    summary: "Short spoken checklists for the night before.",
+    readMinutes: 8,
+    tags: ["cheatsheet", "revision"],
+    related: ["profiling", "networking", "rendering", "assets"],
+    suggestedQuestions: [
+      "Quiz me from the profiling checklist.",
+      "Recite the networking honest line and the authority list.",
+    ],
+    blocks: [
+      h2("profiling", "Profiling"),
+      ul([
+        "Reproduce on development player of the target device",
+        "Baseline frame time p50/p95, not only average fps",
+        "Classify: CPU main, render thread, GPU, memory, IO, network, load",
+        "One hypothesis, one change, measure again, art/QA regressions",
+        "Do not confuse: draw calls ≠ GPU cost; batching ≠ instancing; usage ≠ leak; editor ≠ player",
+      ]),
+      h2("net", "Collaboration rooms"),
+      ul([
+        "Server owns shared objects, occupancy, persistent room, scores",
+        "Client owns input; maybe predicted locomotion",
+        "P2P is a poor default for 30 users and mobile hosts",
+        "Snapshots + deltas; interpolate remotes; reconnect = snapshot",
+        "Honest: I have not shipped this exact 3D product. I have shipped SmartFox/WebSocket clients.",
+      ]),
+      h2("render", "Rendering one-liners"),
+      ul([
+        "Static batching: static same-material; memory; no motion",
+        "GPU instancing: many copies of one mesh/material",
+        "SRP Batcher: fewer SetPass when shaders compatible",
+        "GPU Resident Drawer (Unity 6 URP): Mesh Renderers via BRG; needs Forward+ and compute",
+        "Overdraw/fill: stacked transparents, VFX, UI",
+      ]),
+      h2("addr", "Addressables"),
+      ul([
+        "Ref count zero plus no leftover handles/scenes/clones",
+        "Compare Memory Profiler snapshots",
+        "Remote catalog, per-room groups, platform variants",
+        "Resume, retry, disk, offline lobby, compatibility window",
+      ]),
+    ],
+  },
+  {
+    id: "glossary",
+    title: "Glossary",
+    group: "reference",
+    summary: "Precise definitions the panel expects. Naming a term is not explaining it.",
+    readMinutes: 12,
+    tags: ["glossary", "definitions"],
+    related: ["profiling", "rendering", "networking", "csharp"],
+    suggestedQuestions: [
+      "What is the difference between interpolation and prediction?",
+      "What is boxing?",
+      "What is fill rate?",
+    ],
+    blocks: [
+      qa("Boxing", "Allocating a heap wrapper for a value type, often via object or a non-generic interface. Structs still GC when boxed, stored in arrays, or captured."),
+      qa("SRP Batcher", "URP/HDRP path that reduces SetPass cost when shader variants are compatible. Not the same as combining meshes."),
+      qa("Overdraw / fill rate", "Shading the same pixel more than once. Transparents, particles, and UI often bind interiors even when draw calls look modest."),
+      qa("Occupancy", "Server-side lock granting one owner of a shared object. Timeout on disconnect/pause. Not parenting, not a local bool."),
+      qa("Interpolation", "Playing remote snapshots slightly in the past so motion is smooth."),
+      qa("Prediction / reconciliation", "Local guess for immediate feel; correction when the server disagrees. Unsafe for two clients on one tool."),
+      qa("Snapshot reconnect", "On rejoin, the server sends full relevant state, then deltas. TCP resume is not a design."),
+      qa("Ref count (Addressables)", "Loads increment, Release decrements. Unload needs zero plus no leftover Unity references."),
+      qa("Canvas rebuild", "uGUI regenerating geometry/layout. A ticking value on a huge canvas dirties the whole tree."),
+      qa("Fake null", "A destroyed UnityEngine.Object is not a C# null. MissingReferenceException after OnDestroy callbacks is a classic."),
+      qa("Quality tier", "A named budget (resolution, shadows, LOD, lights, post) with an owner and a device that must pass it."),
+      qa("Blast radius", "Who is crashing, which devices, which rooms, what percent. Decides halt/rollback/hotfix."),
+    ],
+  },
+  {
+    id: "checklists",
+    title: "Delivery checklists",
+    group: "reference",
+    summary: "Printable-in-the-head lists for code review, rooms, releases, and incidents.",
+    readMinutes: 7,
+    tags: ["checklist", "review", "release"],
+    related: ["testing-incidents", "unity-architecture", "team-leadership"],
+    suggestedQuestions: [
+      "What do I reject in code review for events?",
+      "What is in a room content budget?",
+    ],
+    blocks: [
+      h2("review", "Code review rejects"),
+      checklist([
+        "Lambda on a static or long-lived event",
+        "OnEnable subscribe without OnDisable unsubscribe",
+        "LINQ or boxing in a proven hot path without a Profiler note",
+        "New singleton / DontDestroyOnLoad instead of the composition root",
+        "Client-authoritative grab or local occupancy bool for shared tools",
+        "Addressables.Load without a matching Release path",
+        "Logs with player identifiers",
+        "Working but unreadable shared-module change two days before release without a flag",
+      ]),
+      h2("room-budget", "Room content budget"),
+      checklist([
+        "Texture memory cap per platform variant",
+        "Realtime lights and shadow cascades by tier",
+        "Transparent overdraw sanity (glass, VFX, UI)",
+        "Animator count / LOD / culling",
+        "Download size and resume",
+        "Catalog compatibility with the client version",
+      ]),
+      h2("incident", "Incident order"),
+      ol([
+        "Stop the bleeding (halt staged rollout)",
+        "Gather rate, devices, OS, symbols",
+        "Communicate a time-box to Product",
+        "Reproduce / isolate content vs code",
+        "Fix, verify on the failing tier",
+        "Ship, then change the matrix and soak",
+      ]),
+    ],
+  },
+  {
+    id: "resources",
+    title: "External resources and further study",
+    group: "reference",
+    summary: "Official docs and study objects a Team Lead should know by name. This encyclopedia is the interview layer; these are the primary sources.",
+    readMinutes: 6,
+    tags: ["docs", "unity", "study"],
+    related: ["home", "study-path", "vfx-ta-interview", "render-pipelines", "ebook"],
+    suggestedQuestions: [
+      "Which Unity manual pages should I actually read for Addressables unload?",
+      "What should I study if I have never used NGO?",
+    ],
+    blocks: [
+      p("Use official sources to verify APIs. The trainer will not invent package methods. When you study, read for failure modes, not getting-started checklists. For a reading-order pass through the whole 6000.0 Manual and Scripting API, open the Unity 6 ebook wing."),
+      h2("unity-docs", "Unity 6 documentation to know"),
+      ul([
+        "Manual 6000.0: execution order; Profiler; Frame Debugger; Rendering Debugger",
+        "URP 17: camera loop, SRP Batcher, GPU Resident Drawer, Render Graph Viewer, Forward+",
+        "Addressables 2.x: catalogs, memory management, Play Mode scripts",
+        "Particle System: choosing a solution; modules; Renderer; GPU instancing",
+        "Visual Effect Graph 17: contexts, Shader Graph outputs, URP camera buffers",
+        "Shader Graph 17: Master Stack, keywords, precision, Support VFX Graph",
+        "Netcode / multiplayer: interest, RPCs vs snapshots (even if you pick another stack)",
+        "UI: Canvas rebuild, UI Toolkit — know which your team would choose and why",
+        "Build: IL2CPP, managed stripping, Android/iOS player settings",
+      ]),
+      h2("csharp", "C# / engineering"),
+      ul([
+        "ECMA / Microsoft docs: boxing, IDisposable, async, CancellationToken",
+        "SOLID as change-management, not class-count religion",
+        "Testing: Edit Mode / Play Mode tests in Unity Test Framework",
+      ]),
+      h2("leadership", "Leadership craft (non-Unity)"),
+      ul([
+        "Incident command: severity, owner, time-box, post-incident test change",
+        "Estimation: ranges, spikes, explicit non-goals",
+        "Review culture: examples not adjectives; standards as checklists",
+      ]),
+      h2("your-gap-study", "If you have not shipped 3D collaboration"),
+      ol([
+        "Read client-server vs P2P failure modes",
+        "Implement a toy: two clients, one grabbable cube, server lock, fake 250 ms delay",
+        "Write the occupancy state machine on paper: request, grant, deny, timeout, reconnect",
+        "Then return here and ask the trainer to grill the design",
+      ]),
+      callout("tip", "Links live on articles", "Every encyclopedia article lists Unity 6 (6000.0) Manual or package 17 pages. Open those before you trust a remembered API. The trainer cites them; it will not invent nodes."),
+      callout("warn", "Licensing and AI", "Do not paste proprietary game code or player data into public models. See the AI article."),
+    ],
+  },
+];
