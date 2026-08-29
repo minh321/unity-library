@@ -24,7 +24,7 @@ jobs:
           node-version: "20"
           cache: npm
       - name: Install
-        run: npm ci
+        run: npm install
       - name: Pages base path
         run: |
           NAME="${GITHUB_REPOSITORY##*/}"
