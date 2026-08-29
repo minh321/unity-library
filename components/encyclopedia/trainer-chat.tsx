@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { getArticle } from "@/lib/encyclopedia/catalog";
+import { RichText } from "./rich-text";
 import { useEncyclopedia } from "./provider";
 
 export function TrainerChat() {
@@ -54,8 +55,8 @@ export function TrainerChat() {
             <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
               {m.role === "user" ? "You" : "Trainer"}
             </p>
-            <div className="mt-1 whitespace-pre-wrap rounded-lg border border-border bg-background px-3 py-2 text-[13px] leading-6">
-              {m.text}
+            <div className="mt-1 whitespace-pre-wrap rounded-lg border border-border bg-background px-3 py-2.5 text-[14px] leading-7">
+              <RichText text={m.text} />
             </div>
             {m.citations && m.citations.length > 0 ? (
               <div className="mt-2 flex flex-wrap gap-1.5">

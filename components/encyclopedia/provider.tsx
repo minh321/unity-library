@@ -40,10 +40,15 @@ export function EncyclopediaProvider({ children }: { children: React.ReactNode }
   const [openChat, setOpenChat] = useState(false);
 
   useEffect(() => {
-    const fromHash = window.location.hash.replace(/^#\/?/, "");
-    if (fromHash && getArticle(fromHash).id === fromHash) {
-      setArticleIdState(fromHash);
+    function applyHash() {
+      const fromHash = window.location.hash.replace(/^#\/?/, "");
+      if (fromHash && getArticle(fromHash).id === fromHash) {
+        setArticleIdState(fromHash);
+      }
     }
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
   }, []);
 
   const greet = useCallback((id: string) => {
