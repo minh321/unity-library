@@ -1,6 +1,7 @@
 import { coreArticles } from "@/lib/encyclopedia/articles-core";
 import { unityArticles } from "@/lib/encyclopedia/articles-unity";
 import { vfxArticles } from "@/lib/encyclopedia/articles-vfx";
+import { vfxArticlesMore } from "@/lib/encyclopedia/articles-vfx-more";
 import { vfxPlainArticles } from "@/lib/encyclopedia/articles-vfx-plain";
 import { ebookArticles } from "@/lib/encyclopedia/articles-ebook";
 import { docsFor } from "@/lib/encyclopedia/unity-docs";
@@ -24,6 +25,7 @@ export const articles: Article[] = [
   ...coreArticles,
   ...unityArticles,
   ...vfxArticles,
+  ...vfxArticlesMore,
   ...vfxPlainArticles,
   ...ebookArticles,
 ].map(withDocs);
